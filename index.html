@@ -4,112 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arcadia — Gestion WhiteList</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcadia.css">
 <style>
   :root {
-    --violet: #8B5CF6;
-    --violet-dark: #6D28D9;
-    --violet-light: #A78BFA;
-    --violet-glow: rgba(139, 92, 246, 0.15);
-    --bg-deep: #080B10;
-    --bg-card: #0D1117;
-    --bg-panel: #111827;
-    --bg-hover: #161D2B;
-    --border: rgba(139, 92, 246, 0.2);
-    --border-subtle: rgba(255,255,255,0.06);
-    --text-primary: #F1F5F9;
-    --text-muted: #64748B;
-    --text-dim: #94A3B8;
+    --v1: #3B0764; --v2: #6D28D9; --v3: #8B5CF6; --v4: #A78BFA; --v5: #C4B5FD;
+    --r1: #7F1D1D; --r2: #DC2626; --r3: #EF4444; --r4: #F87171;
+    --bg0: #04050D; --bg1: #080B14; --bg2: #0C1020; --bg3: #111528; --bg4: #181D33;
+    --line: rgba(139,92,246,0.18); --line2: rgba(255,255,255,0.05);
+    --tx1: #F1F5F9; --tx2: #94A3B8; --tx3: #475569;
   }
-
-  * { box-sizing: border-box; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-deep);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated background grid */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Glow top */
-  body::after {
-    content: '';
-    position: fixed;
-    top: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 800px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(139,92,246,0.12) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .font-title { font-family: 'Rajdhani', sans-serif; }
-  .font-mono { font-family: 'JetBrains Mono', monospace; }
-
-  /* Login Screen */
-  #loginScreen {
-    position: fixed;
-    inset: 0;
-    background: var(--bg-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
-
-  .login-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 48px 40px;
-    width: 420px;
-    position: relative;
-    box-shadow: 0 0 60px rgba(139,92,246,0.1), 0 0 0 1px rgba(139,92,246,0.15);
-  }
-  .login-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 50%; transform: translateX(-50%);
-    width: 60%; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--violet), transparent);
-    border-radius: 2px;
-  }
-
   .logo-mark {
-    width: 64px; height: 64px;
-    background: linear-gradient(135deg, var(--violet-dark), var(--violet));
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--v1), var(--v2) 50%, var(--r2));
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 28px; font-weight: 700;
-    color: white;
+    font-family: 'Rajdhani', sans-serif; font-size: 28px; font-weight: 700; color: white;
     margin: 0 auto 24px;
-    box-shadow: 0 8px 32px rgba(139,92,246,0.4);
+    box-shadow: 0 0 0 1px rgba(139,92,246,0.35), 0 8px 40px rgba(109,40,217,0.55), 0 0 60px rgba(139,92,246,0.2);
     position: relative;
   }
   .logo-mark::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 15px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    content: ''; position: absolute; inset: -1px; border-radius: 15px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
     pointer-events: none;
   }
 
@@ -562,10 +480,32 @@
   }
   .account-row:hover { background: rgba(255,255,255,0.05); }
 
-  .divider {
-    height: 1px;
-    background: var(--border-subtle);
-    margin: 20px 0;
+  .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(139,92,246,0.25),rgba(220,38,38,0.15),transparent); margin:20px 0; }
+
+  /* Login */
+  #loginScreen { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+  .login-card {
+    background: linear-gradient(145deg, rgba(12,16,32,0.98), rgba(17,21,40,0.99));
+    border: 1px solid rgba(139,92,246,0.3); border-radius: 20px;
+    padding: 44px 38px; width:100%; max-width:400px; margin:0 auto;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,92,246,0.1), 0 0 100px rgba(109,40,217,0.1);
+    position: relative;
+  }
+  .login-card::before {
+    content: ''; position:absolute; top:0; left:10%; right:10%; height:2px;
+    background:linear-gradient(90deg, transparent, var(--v2), var(--v3), var(--r2), transparent); border-radius:2px;
+  }
+
+  /* Section title override */
+  .section-title {
+    font-family: 'Rajdhani', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0.03em;
+    background: linear-gradient(90deg, var(--v4) 0%, var(--v5) 40%, var(--r4) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    position: relative; display: inline-block;
+  }
+  .section-title::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, var(--v3), var(--r3), transparent); opacity: 0.5;
   }
 </style>
 </head>
@@ -573,10 +513,10 @@
 
 <!-- ===================== LOGIN ===================== -->
 <div id="loginScreen">
-  <div style="text-align:center; position: relative; z-index: 1;">
+  <div style="text-align:center; position:relative; z-index:1; width:100%;">
     <!-- Decorative glow -->
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); width:600px; height:400px; background:radial-gradient(ellipse, rgba(139,92,246,0.08), transparent 70%); pointer-events:none;"></div>
-    <div class="login-card" style="position:relative;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); width:600px; height:400px; background:radial-gradient(ellipse at 45%, rgba(109,40,217,0.15) 0%, rgba(220,38,38,0.07) 50%, transparent 75%); pointer-events:none;"></div>
+    <div class="login-card">
       <div class="logo-mark">A</div>
       <h1 class="font-title" style="font-size:28px; font-weight:700; letter-spacing:0.04em; margin-bottom:4px; color: var(--text-primary);">ARCADIA</h1>
       <p style="font-size:13px; color: var(--text-muted); margin-bottom:32px; letter-spacing:0.05em; text-transform:uppercase;">Gestion WhiteList — Staff Portal</p>
@@ -1476,5 +1416,9 @@ function showToast(msg, type = 'success') {
   toastTimeout = setTimeout(() => { el.className = ''; }, 3500);
 }
 </script>
+
+<!-- FOOTER SIGNATURE -->
+<footer class="footer-signature">By Seven</footer>
+
 </body>
 </html>
