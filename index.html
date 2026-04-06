@@ -1104,9 +1104,9 @@ function renderTable(data) {
       <td>${sectorBadge(row.sector)}</td>
       <td style="color:var(--text-muted); font-size:12.5px;">${row.sectorDetail || '—'}</td>
       <td>${boolCell(row.spValidated)}</td>
-      <td style="font-size:12px; color:var(--text-muted);">${row.spDate || '—'}</td>
+        <td style="font-size:12px; color:var(--text-muted);">${(row.spDate && /^\d{4}-\d{2}-\d{2}/.test(row.spDate) ? row.spDate.substring(0, 10) : (row.spDate ? new Date(row.spDate).toISOString().substring(0, 10) : '—'))}</td>
       <td>${boolCell(row.citValidated)}</td>
-      <td style="font-size:12px; color:var(--text-muted);">${row.citDate || '—'}</td>
+        <td style="font-size:12px; color:var(--text-muted);">${(row.citDate && /^\d{4}-\d{2}-\d{2}/.test(row.citDate) ? row.citDate.substring(0, 10) : (row.citDate ? new Date(row.citDate).toISOString().substring(0, 10) : '—'))}</td>
       <td style="font-size:12.5px;">${row.staffSP || '—'}</td>
       <td style="font-size:12.5px;">${row.staffDouane || '—'}</td>
       <td onclick="event.stopPropagation();" style="display:flex; gap:6px; align-items:center;">
